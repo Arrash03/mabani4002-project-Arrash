@@ -22,3 +22,8 @@ suggestion :
     2-2: buttons
     2-3: empty cells
     2-4: mine cells
+
+
+
+Warn :
+    Remember! You specify wining condition in right click commit.

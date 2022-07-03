@@ -93,9 +93,9 @@ class Cell:
 
     @classmethod
     def create_lbl(cls, frame):
-        Cell.cell_lbl = Label(frame, text=f"Cell : {Cell.cell_number}", bg="#18191a", fg="burlywood", font=("Times New Roman", 15))
+        Cell.cell_lbl = Label(frame, text=f"Cell : {Gridsize_width*Gridsize_height}", bg="#18191a", fg="burlywood", font=("Times New Roman", 15))
         Cell.cell_lbl.place(x=5, y=height_percent(10))
-        Cell.flag_lbl = Label(frame, text=f"Flag : {Cell.flag_number}", bg="#18191a", fg="burlywood", font=("Times New Roman", 15))
+        Cell.flag_lbl = Label(frame, text=f"Flag : {mine_number}", bg="#18191a", fg="burlywood", font=("Times New Roman", 15))
         Cell.flag_lbl.place(x=8, y=height_percent(18))
 
     def __repr__(self):

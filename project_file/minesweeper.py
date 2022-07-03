@@ -34,7 +34,15 @@ Cell.randomize_mines()
 Cell.create_lbl(frame1)
 
 # frame2
-Button(frame3, text="Play Again", command=None, bg="burlywood", fg="white",
+def reset():
+    for i in range(Gridsize_width):
+        for j in range(Gridsize_height):
+            c = Cell(i, j)
+            cell = c.createcell(frame2_1)
+    Cell.randomize_mines()
+    Cell.create_lbl(frame1)
+
+Button(frame3, text="Play Again", command=reset, bg="burlywood", fg="white",
        font=("Times New Roman", 15)).place(x=10, y=height_percent(85))
 
 
