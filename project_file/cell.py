@@ -3,6 +3,7 @@ from random import sample
 from settings import mine_number, Gridsize_width, Gridsize_height
 from utils import height_percent
 import ctypes
+import sys
 
 class Cell:
     flag_number = mine_number
@@ -67,24 +68,34 @@ class Cell:
     def left_click(self, event):
         self.is_opened = True
         Cell.cell_number -= 1
-        Cell.cell_lbl.config(text=f"Cell Numbers: {Cell.cell_number}")
+        Cell.cell_lbl.config(text=f"Cell : {Cell.cell_number}")
         if self.is_mine:
             self.show_mine()
         else:
             self.show_cell()
+            if Cell.cell_number == mine_number:
+                ctypes.windll.user32.MessageBoxW(0, "Congratulations!!You Won the Game!!", "The End", 0)
+                sys.exit()
 
     def right_click(self, event):
         if not self.is_flag:
             self.is_flag = True
             Cell.flag_number -= 1
-            Cell.flag_lbl.config(text=f"Flag Numbers: {Cell.flag_number}")
-            # self.flag_cell()
+            Cell.flag_lbl.config(text=f"Flag : {Cell.flag_number}")
+            self.cell_btn_object.config(text="F", bg="orange", fg="white")
+            self.cell_btn_object.unbind("<Button-1>")
+        else:
+            self.is_flag = False
+            Cell.cell_number += 1
+            Cell.flag_lbl.config(text=f"Flag : {Cell.flag_number}")
+            self.cell_btn_object.config(text="", bg="SystemButtonFace", fg="black")
+            self.cell_btn_object.bind("<Button-1>", self.left_click)
 
     @classmethod
     def create_lbl(cls, frame):
-        Cell.cell_lbl = Label(frame, text=f"Cell Numbers: {Cell.cell_number}", bg="#18191a", fg="burlywood", font=("Times New Roman", 12))
+        Cell.cell_lbl = Label(frame, text=f"Cell : {Cell.cell_number}", bg="#18191a", fg="burlywood", font=("Times New Roman", 15))
         Cell.cell_lbl.place(x=5, y=height_percent(10))
-        Cell.flag_lbl = Label(frame, text=f"Flag Numbers: {Cell.flag_number}", bg="#18191a", fg="burlywood", font=("Times New Roman", 12))
+        Cell.flag_lbl = Label(frame, text=f"Flag : {Cell.flag_number}", bg="#18191a", fg="burlywood", font=("Times New Roman", 15))
         Cell.flag_lbl.place(x=8, y=height_percent(18))
 
     def __repr__(self):

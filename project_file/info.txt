@@ -9,6 +9,10 @@ first_click :
 
 search how ta make a buuton unclickable in tkinter
 
+how to specify اولویت running functions in python  --> ctypes
+
+win & lose
+
 
 
 suggestion :
