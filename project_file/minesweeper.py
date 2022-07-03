@@ -26,12 +26,12 @@ frame3.place(x=width_percent(85), y=0)
 # creating cells
 for i in range(Gridsize_width):
     for j in range(Gridsize_height):
-        c = Cell()
+        c = Cell(i, j)
         cell = c.createcell(frame2_1)
-        cell.grid(column=i, row=j, padx=1, pady=1)
+Cell.randomize_mines()
 
 # frame1
-Cell.create_lbl(Cell, frame1)
+Cell.create_lbl(frame1)
 
 # frame2
 Button(frame3, text="Play Again", command=None, bg="burlywood", fg="white",

@@ -2,3 +2,19 @@ cell :
 1. condition:empty, number, mine
 2. clicked or not
 3. flag or not
+
+
+first_click :
+1. making a counter, if counter == 1:   self.is_mine = False,                       OK!!!
+
+search how ta make a buuton unclickable in tkinter
+
+
+
+suggestion :
+1. cell number & flag number
+2. colors :
+    2-1: frame
+    2-2: buttons
+    2-3: empty cells
+    2-4: mine cells
