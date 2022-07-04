@@ -100,5 +100,4 @@ class Cell:
 
     def __repr__(self):
         return f"cell({self.i}, {self.j})"
-        
 

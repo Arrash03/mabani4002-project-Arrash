@@ -27,7 +27,7 @@ frame3.place(x=width_percent(85), y=0)
 for i in range(Gridsize_width):
     for j in range(Gridsize_height):
         c = Cell(i, j)
-        cell = c.createcell(frame2_1)
+        c.createcell(frame2_1)
 Cell.randomize_mines()
 
 # frame1
@@ -35,10 +35,11 @@ Cell.create_lbl(frame1)
 
 # frame2
 def reset():
-    for i in range(Gridsize_width):
-        for j in range(Gridsize_height):
-            c = Cell(i, j)
-            cell = c.createcell(frame2_1)
+    for cell in Cell.all_cell:
+        cell.cell_btn_object = None
+        cell.is_mine = False
+        cell.is_flag = False
+        cell.createcell(frame2_1)
     Cell.randomize_mines()
     Cell.create_lbl(frame1)
 
