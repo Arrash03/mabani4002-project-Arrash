@@ -28,19 +28,18 @@ for i in range(Gridsize_width):
     for j in range(Gridsize_height):
         c = Cell(i, j)
         c.createcell(frame2_1)
-Cell.randomize_mines()
 
 # frame1
 Cell.create_lbl(frame1)
 
 # frame2
 def reset():
+    Cell.mouse_click = 1
     for cell in Cell.all_cell:
         cell.cell_btn_object = None
         cell.is_mine = False
         cell.is_flag = False
         cell.createcell(frame2_1)
-    Cell.randomize_mines()
     Cell.create_lbl(frame1)
 
 Button(frame3, text="Play Again", command=reset, bg="burlywood", fg="white",
