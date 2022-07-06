@@ -37,6 +37,7 @@ def reset():
     Cell.mouse_click = 1
     for cell in Cell.all_cell:
         cell.cell_btn_object = None
+        cell.is_opened = False
         cell.is_mine = False
         cell.is_flag = False
         cell.createcell(frame2_1)

@@ -14,7 +14,8 @@ class Cell:
 
     all_cell = []
 
-    def __init__(self, i, j, is_mine=False, is_flag=False):
+    def __init__(self, i, j, is_opened=False, is_mine=False, is_flag=False):
+        self.is_opened = False
         self.is_mine = False
         self.is_flag = False
         self.i = i
@@ -51,6 +52,8 @@ class Cell:
             self.cell_btn_object.config(text=f"{counter}")
         else:
             self.cell_btn_object.config(bg="burlywood")
+            # self.empty_cell()
+        self.is_opened = True
         self.cell_btn_object.config(state=DISABLED)
         self.cell_btn_object.unbind("<Button-1>")
         self.cell_btn_object.unbind("<Button-3>")
@@ -58,6 +61,9 @@ class Cell:
     def show_mine(self):
         self.cell_btn_object.config(text="mine", bg="red", fg="white")
         for cell in Cell.all_cell:
+            cell.cell_btn_object.config(state=DISABLED)
+            cell.cell_btn_object.unbind("<Button-1>")
+            cell.cell_btn_object.unbind("<Button-3>")
             if cell.is_mine:
                 cell.cell_btn_object.config(text="mine", bg="red", fg="white")
         ctypes.windll.user32.MessageBoxW(0, "You clicked on a Mine!!", "Game Over", 0)
@@ -69,17 +75,22 @@ class Cell:
                 return cell
 
     def left_click(self, event):
-        if Cell.mouse_click == 1:
-            self.first_click()
-        Cell.cell_number -= 1
-        Cell.cell_lbl.config(text=f"Cell : {Cell.cell_number}")
-        if self.is_mine:
-            self.show_mine()
+        if Cell.mouse_click != 1:
+            Cell.cell_number -= 1
+            Cell.cell_lbl.config(text=f"Cell : {Cell.cell_number}")
+            if self.is_mine:
+                self.show_mine()
+            else:
+                self.show_cell()
+                if self.cell_btn_object.cget("text") == "":
+                    self.empty_cell()
+                if Cell.cell_number == mine_number:
+                    ctypes.windll.user32.MessageBoxW(0, "Congratulations!!You Won the Game!!", "The End", 0)
+                    sys.exit()
         else:
-            self.show_cell()
-            if Cell.cell_number == mine_number:
-                ctypes.windll.user32.MessageBoxW(0, "Congratulations!!You Won the Game!!", "The End", 0)
-                sys.exit()
+            self.first_click()
+            Cell.cell_number -= 1
+            Cell.cell_lbl.config(text=f"Cell : {Cell.cell_number}")
 
     def right_click(self, event):
         if not self.is_flag:
@@ -98,15 +109,24 @@ class Cell:
 
     def first_click(self):
         self.randomize_mines()
-
+        self.show_cell()
+        self.empty_cell()
         Cell.mouse_click += 1
 
     def empty_cell(self):
-        empty_cells = [self]
-        while empty_cells != []:
-            for cell in empty_cells:
-                cell.show_cell()
-            empty_cells = []
+        picked_cells = [self]
+        while picked_cells != []:
+            for i in [-1, 0, 1]:
+                for j in [-1, 0, 1]:
+                    if i!=0 or j!=0:
+                        picked_cell = picked_cells[0].surrounded_cells(picked_cells[0].i+i, picked_cells[0].j+j)
+                        if picked_cell != None and not picked_cell.is_opened:
+                            picked_cell.show_cell()
+                            Cell.cell_number -= 1
+                            Cell.cell_lbl.config(text=f"Cell : {Cell.cell_number}")
+                            if picked_cell.cell_btn_object.cget("text") == "":
+                                picked_cells.append(picked_cell)
+            picked_cells.pop(0)
 
 
     @classmethod
