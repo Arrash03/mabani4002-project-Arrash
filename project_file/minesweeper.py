@@ -17,7 +17,7 @@ frame1.place(x=0, y=0)
 frame2 = Frame(window, width=width_percent(70), height=Height, bg="#1f2123")
 frame2.place(x=width_percent(15), y=0)
 
-frame2_1 = Frame(frame2, width=width_percent(70), height=Height, bg="burlywood", highlightbackground="#c88a3b", highlightthickness=2)
+frame2_1 = Frame(frame2, width=width_percent(70), height=Height, bg="burlywood")
 frame2_1.grid(padx=18, pady=6)
 
 frame3 = Frame(window, width=width_percent(15), height=Height, bg="#18191a")

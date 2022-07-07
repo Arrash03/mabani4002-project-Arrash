@@ -1,9 +1,9 @@
 from tkinter import *
+from tkinter import messagebox
 from random import sample
 from settings import mine_number, Gridsize_width, Gridsize_height
 from utils import height_percent
-import ctypes
-import sys
+# import ctypes
 
 class Cell:
     mouse_click = 1
@@ -66,7 +66,8 @@ class Cell:
             cell.cell_btn_object.unbind("<Button-3>")
             if cell.is_mine:
                 cell.cell_btn_object.config(text="mine", bg="red", fg="white")
-        ctypes.windll.user32.MessageBoxW(0, "You clicked on a Mine!!", "Game Over", 0)
+        # ctypes.windll.user32.MessageBoxW(0, "You clicked on a Mine!!", "Game Over", 0)
+        messagebox.showinfo(message="You clicked on a Mine!!", title="Game Over")
 
     @staticmethod
     def surrounded_cells(x, y):
@@ -85,8 +86,8 @@ class Cell:
                 if self.cell_btn_object.cget("text") == "":
                     self.empty_cell()
                 if Cell.cell_number == mine_number:
-                    ctypes.windll.user32.MessageBoxW(0, "Congratulations!!You Won the Game!!", "The End", 0)
-                    sys.exit()
+                    messagebox.showinfo(title="Win", message="Congratulations!!You Won the Game!!")
+                    # ctypes.windll.user32.MessageBoxW(0, "Congratulations!!You Won the Game!!", "The End", 0)
         else:
             self.first_click()
             Cell.cell_number -= 1
